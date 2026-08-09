@@ -94,6 +94,8 @@ brew "zsh"
 cask "alfred"
 # Arc browser
 cask "arc"
+# Brave browser
+cask "brave-browser"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Font family designed for developers, with a high number of glyphs (e.g. icons from popular 'Nerd Fonts' and 'Font Awesome' sets)
@@ -113,7 +115,8 @@ cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Replacement for Docker Desktop
-cask "orbstack"
+# Must live in /Applications (not ~/Applications) to function correctly
+cask "orbstack", args: { appdir: "/Applications" }
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Text editor for code, markup and prose
