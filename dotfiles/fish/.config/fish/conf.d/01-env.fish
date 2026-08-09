@@ -36,3 +36,6 @@ set --global --export UV_NO_CACHE true
 
 # Precommit cache directory
 set --global --export PRE_COMMIT_HOME "$HOME/.cache/pre-commit"
+
+# BitWarden SSH Auth integration
+set --global --export SSH_AUTH_SOCK "$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"

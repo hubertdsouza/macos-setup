@@ -15,7 +15,7 @@
 [core]
 	autocrlf = input
 	editor = $HOMEBREW_PREFIX/bin/code
-	excludesfile = /Users/virajpatel/.gitignore_global
+	excludesfile = /Users/hd/.gitignore_global
 	filemode = false
 	# Caches untracked-file listings per directory in .git/index, keyed on
 	# directory mtime. Safe on APFS; unreliable on filesystems that don't
@@ -99,8 +99,7 @@
 	format = ssh
 
 [gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-	allowedSignersFile = /Users/virajpatel/.ssh/allowed_signers
+	allowedSignersFile = /Users/hd/.ssh/allowed_signers
 
 [tag]
 	forceSignAnnotated = true
