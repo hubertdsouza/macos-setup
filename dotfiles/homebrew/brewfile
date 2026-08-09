@@ -92,6 +92,8 @@ brew "zoxide"
 brew "zsh"
 # Application launcher and productivity software
 cask "alfred"
+# Arc browser
+cask "arc"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Font family designed for developers, with a high number of glyphs (e.g. icons from popular 'Nerd Fonts' and 'Font Awesome' sets)
@@ -112,6 +114,8 @@ cask "notion"
 cask "obsidian"
 # Replacement for Docker Desktop
 cask "orbstack"
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
 # Text editor for code, markup and prose
 cask "sublime-text"
 # Tool to explore all the running tasks (processes)
