@@ -35,7 +35,7 @@
       "Bash(doppler *)",
       "Bash(* doppler *)"
     ],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "auto"
   },
   "model": "opus[1m]",
   "disableClaudeAiConnectors": true,
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -66,7 +66,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -78,7 +78,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -90,7 +90,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -101,7 +101,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -112,7 +112,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -123,7 +123,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -134,7 +134,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -145,7 +145,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -156,7 +156,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -167,7 +167,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/virajpatel/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "command": "if [ -f '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/hd/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/hd/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/hd/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
             "timeout": 10
           }
         ]
@@ -186,15 +186,9 @@
     "command": "${HOME}/.claude/scripts/statusline"
   },
   "enabledPlugins": {
-    "claude-design@virajp-plugins": true,
-    "context7@virajp-plugins": true,
-    "github-actions@virajp-plugins": true,
-    "markdown@virajp-plugins": true,
-    "mempalace@virajp-plugins": true,
-    "mise@virajp-plugins": true,
-    "typescript@virajp-plugins": true,
-    "vwf@virajp-plugins": true,
-    "warp@claude-code-warp": true
+    "warp@claude-code-warp": true,
+    "devtools@virajp-plugins": true,
+    "vwf@virajp-plugins": true
   },
   "extraKnownMarketplaces": {
     "claude-code-warp": {
@@ -211,8 +205,8 @@
     },
     "virajp-plugins": {
       "source": {
-        "source": "github",
-        "repo": "virajp/ai-plugins"
+        "source": "directory",
+        "path": "/Users/hd/.local/share/virajp/ai-plugins/claude"
       }
     }
   },

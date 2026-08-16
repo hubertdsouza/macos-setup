@@ -30,23 +30,8 @@
       "type": "remote",
       "url": "https://api.anthropic.com/v1/design/mcp"
     },
-    "context7": {
-      "command": [
-        "pnpm",
-        "dlx",
-        "@upstash/context7-mcp"
-      ],
-      "type": "local"
-    },
-    "mempalace": {
-      "command": [
-        "mise",
-        "x",
-        "--",
-        "mempalace-mcp"
-      ],
-      "type": "local"
-    }
+    "context7": {"type":"local","command":["pnpm","dlx","@upstash/context7-mcp"],"environment":{"CONTEXT7_API_KEY":"${CONTEXT7_API_KEY:-}"}},
+    "mempalace": {"type":"remote","url":"http://127.0.0.1:8765/mcp"}
   },
   "skills": {
     "paths": [

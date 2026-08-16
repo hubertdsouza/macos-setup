@@ -18,6 +18,10 @@ brew "curl"
 brew "diff-so-fancy"
 # Tool for exploring each layer in a docker image
 # brew "dive"
+# Docker cli
+brew "docker"
+# Docker Compose
+brew "docker-compose"
 # Command-line DNS Client for Humans
 brew "doggo"
 # Modern, maintained replacement for ls

@@ -4,9 +4,6 @@
 set -e
 source "${HOME}/.config/mise/tasks/_scripts/_helpers"
 
-if ! docker compose --file "${HOME}/.config/mempalace/docker-compose.yaml" ps --status running --services 2>/dev/null | grep -qx mempalace; then
-  print_error "✗ mempalace container isn't running. Try: mise run mempalace:start"
-  exit 1
-fi
-
-docker compose --file "${HOME}/.config/mempalace/docker-compose.yaml" exec mempalace mempalace status
+print_header "Checking mempalace status ..."
+pitchfork status --json global/mempalace-qdrant
+pitchfork status --json global/mempalace-mcp
