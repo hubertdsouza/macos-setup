@@ -17,9 +17,6 @@
 # GitHub Copilot
 "~/.github/git-commit-guidelines.md" = { mode = "symlink", source = "ai-tools/copilot/git-commit-guidelines.md" }
 
-# 1Password
-"~/.config/1Password/ssh/agent.toml" = { mode = "symlink", source = "1Password/agent.toml" }
-
 # dprint & Taplo
 "~/.config/dprint.json" = { mode = "symlink", source = "dprint/dprint.json" }
 "~/.config/taplo.toml"  = { mode = "symlink", source = "dprint/taplo.toml" }
@@ -61,6 +58,3 @@
 
 # Starship
 "~/.config/starship.toml" = { mode = "symlink", source = "starship/starship.toml" }
-
-# Warp (Tabs Config)
-"~/.warp/tab_configs" = { mode = "symlink", source = "warp/tab_configs" }

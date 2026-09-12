@@ -71,7 +71,7 @@ mise run mempalace:restart
 # Last on purpose: this prompts for sudo (pmset/nvram) and restarts Finder,
 # Dock and ControlCenter, so everything above it is already done by then.
 # macOS updates reset these settings, so re-applying them here is the fix.
-readonly MACOS_SETUP="${HOME}/Projects/github.com/virajp/macos-setup/utils/macos-setup"
+readonly MACOS_SETUP="${HOME}/Projects/github.com/hubertdsouza/macos-setup/utils/macos-setup"
 
 print_header "Applying macOS system settings ..."
 if [[ -x "${MACOS_SETUP}" ]]; then

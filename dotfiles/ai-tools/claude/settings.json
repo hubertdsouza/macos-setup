@@ -219,8 +219,8 @@
     },
     "virajp-plugins": {
       "source": {
-        "source": "directory",
-        "path": "/Users/virajpatel/Projects/github.com/virajp/ai-plugins/.dev-marketplace"
+        "source": "github",
+        "repo": "virajp/ai-plugins"
       }
     }
   },

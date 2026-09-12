@@ -23,11 +23,9 @@ app's config; `mise.toml`'s `[dotfiles]` map symlinks them into `$HOME` (see
 | `homebrew/`   | The `brewfile` (source of truth for installed packages)            |
 | `dprint/`     | `dprint` / `taplo` formatter configuration                         |
 | `gem/`        | RubyGems configuration                                             |
-| `1Password/`  | 1Password SSH agent configuration                                  |
 | `ai-tools/`   | Claude Code (`claude/`) and GitHub Copilot (`copilot/`) config     |
 | `mempalace/`  | mempalace/qdrant docker compose stack (see below)                  |
 | `pitchfork/`  | Pitchfork daemon config — supervises the mempalace stack           |
-| `warp/`       | Warp terminal launch configurations (`tab_configs/*.toml`)         |
 
 ## Shells & Prompt
 
