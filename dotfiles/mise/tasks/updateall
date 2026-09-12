@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+#MISE description="Upgrade all tools managed in the system"
+#MISE depends=["global:init"]
+#MISE hide=true
+
+set -e
+source "${HOME}/.config/mise/tasks/_scripts/_helpers"
+
+# Kill keyboxd (gpg) to ensure that stale keys are refreshed
+gpgconf --kill all || true
+
+# Set global Git configuration for GPG SSH signing.
+# Single-quoted so the literal ~ is written to ~/.gitconfig rather than an
+# expanded absolute path: that file is a symlink into this repo, so an
+# expanded $HOME would hardcode this machine's username into version control.
+# git expands ~ in config path values at read time.
+git config --global gpg.ssh.allowedSignersFile '~/.ssh/allowed_signers'
+
+# Check for Touch ID setup for sudo authentication
+mise run upgrade:touch-id
+
+# Upgrade mise first to ensure we have the latest features and fixes
+print_header "Upgrading MISE ..."
+brew upgrade --formulae mise --yes
+
+# Reshim mise to ensure all tools are available
+print_header "Reshimming mise ..."
+mise reshim
+
+# Run mise doctor
+print_header "Running mise doctor ..."
+mise doctor --quiet --silent > /dev/null
+
+# Install & upgrade mise
+print_header "Setting up MISE ..."
+mise install
+
+print_header "Upgrading mise tools ..."
+mise upgrade  || true
+
+# Pick up a freshly upgraded pitchfork: the supervisor keeps running the binary
+# it started with, so without this the CLI and supervisor drift apart and newer
+# config keys (e.g. the mempalace-mcp on_exit hook) are parsed by a stale
+# supervisor. Before the prune below, which can delete the old install dir.
+print_header "Restarting pitchfork supervisor ..."
+pitchfork supervisor start --force
+# --force kills the supervisor and leaves its daemons stopped; they are not
+# re-adopted (boot_start only applies when the supervisor runs in boot mode).
+# Bring them back now rather than leaving mempalace down for the rest of the run.
+print_header "Starting global pitchfork daemons ..."
+pitchfork start --global
+
+# Prune all unused versions of tools
+print_header "Pruning unused versions of tools ..."
+mise prune --yes
+
+# Upgrade Homebrew and all installed packages
+mise run upgrade:brew
+
+mise run upgrade:npm
+
+mise run cleanupDS ~/Projects
+
+mise run upgrade:macos:download
+
+mise run upgrade:ai
+
+mise run mempalace:update
+mise run mempalace:restart
+
+# Last on purpose: this prompts for sudo (pmset/nvram) and restarts Finder,
+# Dock and ControlCenter, so everything above it is already done by then.
+# macOS updates reset these settings, so re-applying them here is the fix.
+readonly MACOS_SETUP="${HOME}/Projects/github.com/virajp/macos-setup/utils/macos-setup"
+
+print_header "Applying macOS system settings ..."
+if [[ -x "${MACOS_SETUP}" ]]; then
+  "${MACOS_SETUP}"
+else
+  print_error "Not found: ${MACOS_SETUP}"
+  echo "Skipping macOS system settings."
+fi
+
+print_header "Setup complete!"

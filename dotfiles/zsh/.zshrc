@@ -6,40 +6,35 @@
 # echo "Start: $(date)"
 
 # Setup all environment variables
+# Only bootstrap vars live here now; the rest come from mise's [env] block,
+# applied by `mise activate` below.
 source ~/.config/zsh/misc.sh
 source ~/.config/zsh/homebrew.sh
 source ~/.config/zsh/zinit.sh
-source ~/.config/zsh/dev.sh
-source ~/.config/zsh/gcp.sh
-
-# Import secrets (environment variables)
-# source "${CLOUD_PATH}/Secure/secrets.sh"
 
 # echo "Setup environment variables: $(date)"
 
 # Path
-export PATH="${HOME}/.pub-cache/bin:${PATH}"
-export PATH="${GEM_HOME}/bin:${PATH}"
-export PATH="${ANDROID_HOME}/cmdline-tools/latest/bin:${PATH}"
-export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:${PATH}"
 export PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
-export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin:${PATH}"
 
 # Created by `pipx` on 2024-03-15 06:20:45
-export PATH="${PATH}:/Users/virajpatel/.local/bin"
+export PATH="${PATH}:${HOME}/.local/bin"
+
+# mise activate
+# Must run after `brew shellenv` and the PATH exports above: mise wins
+# precedence by prepending, so anything touching PATH after this steals it.
+# Aliases and functions arrive here too, from [shell_alias] and [tasks] -
+# which is why there is no longer an aliases.sh or functions.sh.
+# .zshenv loads shims first; see the comment there for why that is required.
+export MISE_ENV=dev
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
+# Shell options: history, keybindings, completion styling
+source ~/.config/zsh/zsh.sh
 
 # Initialisers
 source ~/.config/zsh/initialisers.sh
 
 # echo "Initialisers: $(date)"
-
-# Aliases and functions
-source ~/.config/zsh/aliases.sh
-source ~/.config/zsh/functions.sh
-source ~/.config/zsh/upgrades.sh
-source ~/.config/zsh/95octane.sh
-
-# echo "Aliases, Functions, Upgrades, 95octane: $(date)"
-
-# activate mise for zsh
-eval "$(mise activate zsh)"

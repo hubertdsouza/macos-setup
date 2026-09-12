@@ -13,7 +13,7 @@ already present, then installs the brewfile, symlinks the dotfiles, and applies
 the macOS defaults.
 
 ```shell
-/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/hubertdsouza/macos-setup/main/setup)"
+/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/virajp/macos-setup/main/setup)"
 ```
 
 ## Reference

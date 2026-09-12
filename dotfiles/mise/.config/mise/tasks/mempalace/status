@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-#MISE description="Show mempalace status (runs inside the container, so it reflects the real qdrant-backed data)"
-
-set -e
-source "${HOME}/.config/mise/tasks/_scripts/_helpers"
-
-print_header "Checking mempalace status ..."
-pitchfork status --json global/mempalace-qdrant
-pitchfork status --json global/mempalace-mcp
