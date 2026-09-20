@@ -97,13 +97,13 @@ backend = "pipx:mempalace"
 specifiers = ["latest"]
 
 [[tools.pitchfork]]
-version = "2.26.0"
+version = "2.27.0"
 backend = "packslip:github.com/jdx/pitchfork"
 specifiers = ["latest"]
 
 [tools.pitchfork."platforms.macos-arm64"]
-checksum = "sha256:5657a6d636aa903f6f47c7612b4252cb86c7cdde7daff754910d43a68f55584a"
-url = "https://github.com/jdx/pitchfork/releases/download/v2.26.0/pitchfork-aarch64-apple-darwin.tar.gz"
+checksum = "sha256:77491f4d803039ae4cf346c292db62b9b5aad971cc0850413917ef92cf335901"
+url = "https://github.com/jdx/pitchfork/releases/download/v2.27.0/pitchfork-aarch64-apple-darwin.tar.gz"
 signer = "sigstore-oidc:https://github.com/jdx/pitchfork/.github/workflows/release.yml"
 
 [[tools.pnpm]]
