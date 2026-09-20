@@ -14,7 +14,7 @@
 # Usage:
 #   ./setup
 #   # or bootstrap a fresh machine directly from the public repo:
-#   curl -fsSL https://raw.githubusercontent.com/virajp/macos-setup/main/setup | sh
+#   curl -fsSL https://raw.githubusercontent.com/hubertdsouza/macos-setup/main/setup | sh
 #   # a fork: GITHUB_USER=<you> curl ... | sh
 #
 # Steps:
@@ -52,7 +52,7 @@ main() {
   local CHECK_EMOJI="🩺"
   local WARNING_EMOJI="⚠️"
 
-  local GITHUB_USER="${GITHUB_USER:-virajp}"
+  local GITHUB_USER="${GITHUB_USER:-hubertdsouza}"
   local REPO_URL="https://github.com/${GITHUB_USER}/macos-setup.git"
   local REPO_DIR="${HOME}/Projects/github.com/${GITHUB_USER}/macos-setup"
   local MISE_CONFIG_DIR="${HOME}/.config/mise"

@@ -2,27 +2,28 @@
 # declared in mise/conf.d/packages.toml ([bootstrap.packages]) and installed by mise;
 # casks stay on Homebrew because mise's cask support is intentionally narrow.
 # Applied by the brew:casks task (post-packages hook) via `brew bundle`.
-# 1Password must live in /Applications; everything else goes to ~/Applications
+# OrbStack must live in /Applications; everything else goes to ~/Applications
 # via HOMEBREW_CASK_OPTS.
+tap "macpaw/taps", trusted: {
+  cask: ["cleanmymac-cli"]
+}
 tap "stablyai/orca", trusted: {
   cask: ["orca"]
 }
-# Password manager that keeps all passwords secure behind one password
-cask "1password", args: { appdir: "/Applications" }
 # Application launcher and productivity software
 cask "alfred"
-# Tools for building Android applications
-cask "android-studio"
+# Arc browser
+cask "arc"
 # Web browser focusing on privacy
 cask "brave-browser"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Claude Code
 cask "claude-code@latest"
+# CleanMyMac CLI
+cask "macpaw/taps/cleanmymac-cli"
 # Free app that makes your Internet safer
 # cask "cloudflare-warp"
-# Find files, folders, or contents in any file
-cask "easyfind"
 # Font family designed for developers, with a high number of glyphs (e.g. icons from popular 'Nerd Fonts' and 'Font Awesome' sets)
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
@@ -42,13 +43,12 @@ cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Replacement for Docker Desktop
-cask "orbstack"
+# Must live in /Applications (not ~/Applications) to function correctly
+cask "orbstack", args: { appdir: "/Applications" }
 # IDE for orchestrating AI coding agents across terminals and worktrees
 cask "stablyai/orca/orca"
-# Collection of apps available by subscription
-cask "setapp"
-# Team communication and collaboration software
-cask "slack"
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
 # Mux and tag mp4 files
 # cask "subler"
 # Text editor for code, markup and prose

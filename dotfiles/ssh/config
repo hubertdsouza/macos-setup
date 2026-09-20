@@ -8,7 +8,7 @@ Include ~/.orbstack/ssh/config
 Include ~/.ssh/config.local
 
 Host *
-  User virajp
+  User hubertdsouza
   StrictHostKeyChecking accept-new
   CheckHostIP yes
   TCPKeepAlive yes
@@ -19,4 +19,4 @@ Host *
   Protocol 2
   ServerAliveInterval 30
   ServerAliveCountMax 4
-  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  IdentityAgent "~/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"

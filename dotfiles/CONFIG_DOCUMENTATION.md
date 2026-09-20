@@ -23,7 +23,6 @@ app's config; the `[dotfiles]` map in `mise.toml` symlinks them into `$HOME`
 | `pnpm/`       | Global pnpm settings (`config.yaml`); auth stays in `~/.npmrc`      |
 | `dprint/`     | `dprint` / `taplo` formatter configuration                          |
 | `gem/`        | RubyGems configuration                                              |
-| `1Password/`  | 1Password SSH agent configuration                                   |
 | `ai-tools/`   | Claude Code (`claude/`) and GitHub Copilot (`copilot/`) config      |
 | `mempalace/`  | mempalace/qdrant docker compose stack (see below)                   |
 | `pitchfork/`  | Pitchfork daemon config — supervises the mempalace stack            |
@@ -239,6 +238,6 @@ Only paths listed in `[dotfiles]` (`dotfiles/mise.toml`) are symlinked, so repo
 metadata is never linked by accident. Sources are relative to `dotfiles/`.
 `mode = "symlink"` links the source itself; `mode = "symlink-each"` links each
 entry inside the source directory individually (used for `~/.ssh`, where ssh and
-the 1Password agent write sibling files). `~/.config/gh` is deliberately not
+the Bitwarden agent write sibling files). `~/.config/gh` is deliberately not
 `symlink-each`: only `config.yml` is linked, so `gh`-written `hosts.yml` cannot
 land in the repo (see **SSH & GitHub CLI**).

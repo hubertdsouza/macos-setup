@@ -30,7 +30,6 @@ fnox  = { minimum_release_age = "0h", version = "latest" }
 usage = { minimum_release_age = "0h", version = "latest" }
 
 # Developer Tools
-1password = { minimum_release_age = "0h", version = "latest" }
 bun       = { minimum_release_age = "0h", version = "latest" }
 jq        = { version = "latest" }
 node      = { minimum_release_age = "0h", version = "latest" }
@@ -143,11 +142,14 @@ kubectx  = "kubectl config get-contexts"
 # fnox plugin
 _.fnox-env = { tools = true }
 
+# Bitwarden SSH agent (also signs git commits — see dotfiles/git/gitconfig)
+SSH_AUTH_SOCK = "${HOME}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+
 # GitHub related
-GITHUB_EMAIL = "3125954+virajp@users.noreply.github.com"
+GITHUB_EMAIL = "56062845+hubertdsouza@users.noreply.github.com"
 
 # GitLab related
-GITLAB_EMAIL = "35455-virajp@users.noreply.gitlab.com"
+GITLAB_EMAIL = "39266982-hubertdsouza@users.noreply.gitlab.com"
 
 # GCP related
 CLOUDSDK_ACTIVE_CONFIG_NAME = "default"
