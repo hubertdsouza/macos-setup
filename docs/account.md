@@ -17,7 +17,7 @@ additional account with `admin privileges`.
 ### Step 1: Create a Standard User
 
 First, create a standard user account. You can do this by going to System
-Preferences > Users & Groups > Add User. Let's name this user as `hd`
+Preferences > Users & Groups > Add User. Let's name this user as `virajpatel`
 
 ### Step 2: Create an Admin User
 
@@ -35,7 +35,7 @@ su admin
 sudo visudo
 
 # Add the following line under %admin line
-hd ALL=(ALL) ALL
+virajpatel ALL=(ALL) ALL
 ```
 
 ### Step 4: Install XCode Command-Line Tools & Rosetta

@@ -1,31 +1,37 @@
 # macOS Setup
 
-My personal macOS provisioning repo: a Homebrew `brewfile`, dotfiles managed
-with [mise](https://mise.jdx.dev/), and a `mise` task runner that ties
-everything together.
+My personal macOS provisioning repo, driven by
+[`mise bootstrap`](https://mise.jdx.dev/bootstrap.html): packages, dotfiles,
+macOS defaults, login shell and Touch ID are all declared in the global mise
+config ([`dotfiles/mise/conf.d/`](./dotfiles/mise/conf.d/)), plus a `mise` task
+runner for the rest.
 
 ## Automated setup
 
-The [`./setup`](./setup) script is the main entrypoint. It installs Homebrew if
-missing, installs everything in
-[`dotfiles/homebrew/brewfile`](./dotfiles/homebrew/brewfile), symlinks the
-dotfiles via `mise run dotfiles:install`, and applies the macOS defaults in
-[`utils/macos-setup`](./utils/macos-setup):
+The [`./setup`](./setup) script is the main entrypoint. It installs Homebrew and
+`mise` if missing, links `~/.config/mise`, then runs `mise bootstrap` — Homebrew
+formulae and App Store apps (`[bootstrap.packages]`), casks and VS Code
+extensions via the Brewfile (`brew:casks`), macOS `defaults`
+(`[bootstrap.macos.defaults]`), the fish login shell, Touch ID for sudo, and the
+pmset/nvram power profile (`macos:power` task):
 
 ```shell
 ./setup
+# or, once set up, converge directly:
+mise bootstrap            # from any directory; --dry-run to preview
+mise bootstrap status     # what differs
+mise run dotfiles:install # (re)link the dotfiles — a repo task, not part of bootstrap
 ```
 
 > On a truly fresh machine, run the one-liner in
-> [docs/setup.md](./docs/setup.md) — it installs Homebrew and clones this repo
-> before running `./setup`.
+> [docs/setup.md](./docs/setup.md) (`curl … | sh`) — it installs Homebrew and
+> clones this repo before doing the same.
 
 ## Manual steps
 
 - [Create account](./docs/account.md)
 - [Setup Hostname](./docs/host.md)
 - [Setup](./docs/setup.md)
-- [Configure Shell](./docs/shell.md)
 - [Setup TouchID for sudo](./docs/touchid-sudo.md)
 - [Install tools](./docs/tools.md)
 - [AI tools](./docs/ai-tools/readme.md)
@@ -35,10 +41,10 @@ dotfiles via `mise run dotfiles:install`, and applies the macOS defaults in
 Tasks are run with `mise` (list them with `mise tasks`):
 
 ```shell
-mise run brew:gen        # regenerate the brewfile from installed packages
-mise run brew:check      # check the system against the brewfile
-mise run dotfiles:install # (re)symlink dotfiles
-mise run dotfiles:status  # show which dotfile symlinks are missing
+mise bootstrap packages status  # system vs [bootstrap.packages]
+mise bootstrap packages apply   # install what is missing
+mise run dotfiles:install       # (re)symlink dotfiles
+mise run dotfiles:status        # show which dotfile symlinks are missing
 mise run code:format     # format files (dprint/taplo)
 mise run code:lint       # lint files
 mise run system:symlinks # find broken symlinks in $HOME (--deep, --delete)
@@ -50,8 +56,9 @@ how the dotfiles are organized.
 ## Final steps: Update tools & macOS
 
 ```shell
-# Update everything
+# Update everything (the macOS settings / power profile part runs weekly)
 updateall
+updateall --force   # run the weekly part now
 
 # Update macOS (works on zsh & fish only)
 osx-upgrade

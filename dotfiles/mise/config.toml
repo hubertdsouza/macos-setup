@@ -3,6 +3,8 @@ activate_aggressive  = true
 all_compile          = false
 env_shell_expand     = true
 gpg_verify           = true
+lockfile             = true
+lockfile_platforms   = [ "macos-arm64" ]
 minimum_release_age  = "10h"
 os                   = "macos"
 paranoid             = true
@@ -20,28 +22,29 @@ python.uv_venv_auto = "create|source"
 
 # Package manager settings
 npm.package_manager = "pnpm"
-pipx.uvx            = true
+pipx.uvx            = false
 
 [tools]
 # MISE tools
-fnox  = { version = "latest" }
-usage = { version = "latest" }
+fnox  = { minimum_release_age = "0h", version = "latest" }
+usage = { minimum_release_age = "0h", version = "latest" }
 
 # Developer Tools
-bun       = { version = "latest" }
+1password = { minimum_release_age = "0h", version = "latest" }
+bun       = { minimum_release_age = "0h", version = "latest" }
 jq        = { version = "latest" }
-node      = { version = "latest" }
-pitchfork = { version = "latest" }
-pnpm      = { version = "latest" }
-python    = { version = "latest" }
-uv        = { version = "latest" }
+node      = { minimum_release_age = "0h", version = "latest" }
+pitchfork = { minimum_release_age = "0h", version = "latest" }
+pnpm      = { minimum_release_age = "0h", version = "latest" }
+python    = { minimum_release_age = "0h", version = "latest" }
+uv        = { minimum_release_age = "0h", version = "latest" }
 yq        = { version = "latest" }
 
 # AI Tools
 "npm:@mermaid-js/mermaid-cli" = { version = "latest" }
 "npm:codeburn"                = { version = "latest" }
-"pipx:graphifyy"              = { uvx = true, version = "latest" }
-"pipx:mempalace"              = { uvx = true, version = "latest" }
+"pipx:graphifyy"              = { version = "latest" }
+"pipx:mempalace"              = { version = "latest" }
 rtk                           = { version = "latest" }
 
 # Linter & Formatters
@@ -65,12 +68,11 @@ updateall          = "mise run updateall"
 
 # AI Tools shortcuts
 aistats = "mise x -- pnpx codeburn"
-cc      = "ccn --continue"
-ccf     = "cc --model 'fable[1m]'"
-cch     = "cc --model 'haiku[1m]'"
-ccn     = 'claude --allow-dangerously-skip-permissions --dangerously-skip-permissions --remote-control --name "$(basename "$PWD")" --effort "high"'
-cco     = "cc --model 'opus[1m]'"
-ccs     = "cc --model 'sonnet[1m]'"
+cc      = "mise run --silent func:claude"
+ccf     = "mise run --silent func:claude --model 'fable[1m]'"
+cch     = "mise run --silent func:claude --model 'haiku[1m]'"
+cco     = "mise run --silent func:claude --model 'opus[1m]'"
+ccs     = "mise run --silent func:claude --model 'sonnet[1m]'"
 
 # Development related shortcuts
 code = "mise run --silent func:code"
@@ -120,7 +122,7 @@ tl = "eza --tree --color=always --all --group-directories-first --sort name --lo
 
 # Git Related Aliases
 gc    = 'git commit -a -m'
-gp    = 'git push --all --atomic --verbose'
+gp    = 'git push --verbose'
 gpull = 'git pull --all --verbose --progress'
 gs    = 'git status -sb'
 
@@ -141,14 +143,11 @@ kubectx  = "kubectl config get-contexts"
 # fnox plugin
 _.fnox-env = { tools = true }
 
-# Bitwarden SSH agent (also signs git commits — see dotfiles/git/gitconfig)
-SSH_AUTH_SOCK = "${HOME}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
-
 # GitHub related
-GITHUB_EMAIL = "56062845+hubertdsouza@users.noreply.github.com"
+GITHUB_EMAIL = "3125954+virajp@users.noreply.github.com"
 
 # GitLab related
-GITLAB_EMAIL = "39266982-hubertdsouza@users.noreply.gitlab.com"
+GITLAB_EMAIL = "35455-virajp@users.noreply.gitlab.com"
 
 # GCP related
 CLOUDSDK_ACTIVE_CONFIG_NAME = "default"
@@ -184,6 +183,9 @@ HOMEBREW_FORCE_BREWED_CURL          = "true"
 HOMEBREW_FORCE_BREWED_GIT           = "true"
 HOMEBREW_NO_ANALYTICS               = "true"
 HOMEBREW_NO_ENV_HINTS               = "1"
+# Casks + VS Code extensions live here (dotfiles/homebrew/brewfile); formulae
+# are mise's ([bootstrap.packages]). Lets bare `brew bundle ...` work anywhere.
+HOMEBREW_BUNDLE_FILE = "${HOME}/.config/brewfile"
 
 # Python (uv)
 UV_NO_CACHE          = "true"

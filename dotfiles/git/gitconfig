@@ -1,7 +1,7 @@
 [user]
-  name = hubertdsouza
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4ped+YB6zyuWDCuSgSOyYhmUxCBRXJsNDka0pABeUX
-  email = 56062845+hubertdsouza@users.noreply.github.com
+  name = Viraj Patel
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDPWDmaVfV3kK6TWH8Kd+H4ePlsg8ywwGNRbGPnSICGo
+  email = 3125954+virajp@users.noreply.github.com
 
 # [includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
 # 	path = ~/.config/git/gitconfig-github
@@ -26,7 +26,7 @@
 	untrackedCache = true
 
 [push]
-	default = matching
+	default = current
 
 [pull]
 	rebase = false
@@ -83,7 +83,7 @@
 	c = checkout
 	b = branch
 	rb = rebase
-	p = push --all --atomic --verbose
+	p = push --verbose
 
 [commit]
 	template = ~/.stCommitMsg
@@ -102,6 +102,7 @@
 	format = ssh
 
 [gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 	allowedSignersFile = ~/.ssh/allowed_signers
 
 [tag]

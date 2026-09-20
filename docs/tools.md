@@ -21,7 +21,7 @@ the section.
 open "$HOME/Applications/Sublime Text.app"
 ```
 
-> Copy license from Bitwarden and apply
+> Copy license from 1Password and apply
 >
 > Install package control by pressing "cmd+shift+p" and selecting "Install
 > Package Control"

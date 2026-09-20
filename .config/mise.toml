@@ -8,7 +8,6 @@ task.output         = "interleave"
 
 # Package manager settings
 npm.package_manager = "pnpm"
-pipx.uvx            = true
 python.compile      = false
 python.uv_venv_auto = "create|source"
 
@@ -18,11 +17,6 @@ node       = { version = "latest" }
 pnpm       = { version = "latest" }
 pre-commit = { version = "latest" }
 taplo      = { version = "latest" }
-
-[env]
-# The brewfile lives at dotfiles/homebrew/brewfile and is symlinked to
-# ~/.config/brewfile by the [dotfiles] map. There is no ./Brewfile.
-HOMEBREW_BUNDLE_FILE = "{{env.HOME}}/.config/brewfile"
 
 [tasks.init]
 description = "Initialize mise tasks"

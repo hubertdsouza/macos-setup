@@ -1,112 +1,28 @@
-tap "macpaw/taps", trusted: {
-  cask: ["cleanmymac-cli"]
-}
+# Casks and VS Code extensions only. Formulae and Mac App Store apps are
+# declared in mise/conf.d/packages.toml ([bootstrap.packages]) and installed by mise;
+# casks stay on Homebrew because mise's cask support is intentionally narrow.
+# Applied by the brew:casks task (post-packages hook) via `brew bundle`.
+# 1Password must live in /Applications; everything else goes to ~/Applications
+# via HOMEBREW_CASK_OPTS.
 tap "stablyai/orca", trusted: {
   cask: ["orca"]
 }
-tap "virajp/tap", trusted: {
-  formula: ["claude-status"]
-}
-# Bourne-Again SHell, a UNIX command interpreter
-brew "bash"
-# Mozilla CA certificate store
-brew "ca-certificates"
-# Clone of cat(1) with syntax highlighting and Git integration
-brew "bat"
-# Resource monitor. C++ version and continuation of bashtop and bpytop
-brew "btop"
-# Claude Code Status written in Rust
-brew "claude-status"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
-# Get a file from an HTTP, HTTPS or FTP server
-brew "curl"
-# Good-lookin' diffs with diff-highlight and more
-brew "diff-so-fancy"
-# Docker cli
-brew "docker"
-# Docker Compose
-brew "docker-compose"
-# Command-line DNS Client for Humans
-brew "doggo"
-# Modern, maintained replacement for ls
-brew "eza"
-# Simple, fast and user-friendly alternative to find
-# brew "fd"
-# User-friendly command-line shell for UNIX-like operating systems
-brew "fish"
-# Fort Knox for your secrets - flexible secret management tool
-brew "fnox"
-# Command-line fuzzy finder written in Go
-brew "fzf"
-# GitHub command-line tool
-brew "gh"
-# Distributed revision control system
-brew "git"
-# GitLab command-line tool
-brew "glab"
-# Assorted git-related scripts and tools
-brew "git-tools"
-# GNU Privacy Guard (OpenPGP)
-brew "gnupg"
-# Ping, but with a graph
-brew "gping"
-# Ping-like tool for HTTP requests
-brew "httping"
-# Tools and libraries to manipulate images in select formats
-brew "imagemagick"
-# Calculate various network masks, etc. from a given IP address
-brew "ipcalc"
-# Lightweight and flexible command-line JSON processor
-brew "jq"
-# Simple terminal UI for git commands
-brew "lazygit"
-# Graphical front-end for GCC's coverage testing tool (gcov)
-brew "lcov"
-# Mac App Store command-line interface
-brew "mas"
-# Polyglot runtime manager (asdf rust clone)
-brew "mise"
-# Wrapper to colorize and simplify ping's output
-brew "prettyping"
-# Show ps output as a tree
-brew "pstree"
-# Search tool like grep, but faster
-brew "ripgrep"
-# Cross-shell prompt for astronauts
-brew "starship"
-# Interactive TUI for Homebrew
-# brew "gromgit/brewtils/taproom"
-# Easiest, most secure way to use WireGuard and 2FA
-brew "tailscale"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
-# Executes a program periodically, showing output fullscreen
-brew "watch"
-# Internet file retriever
-brew "wget"
-# Process YAML, JSON, XML, CSV and properties documents from the CLI
-brew "yq"
-# Flexible and fast Zsh plugin manager
-brew "zinit"
-# Shell extension to navigate your filesystem faster
-brew "zoxide"
-# UNIX shell (command interpreter)
-brew "zsh"
+# Password manager that keeps all passwords secure behind one password
+cask "1password", args: { appdir: "/Applications" }
 # Application launcher and productivity software
 cask "alfred"
-# Arc browser
-cask "arc"
+# Tools for building Android applications
+cask "android-studio"
 # Web browser focusing on privacy
 cask "brave-browser"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Claude Code
 cask "claude-code@latest"
-# CleanMyMac CLI
-cask "macpaw/taps/cleanmymac-cli"
 # Free app that makes your Internet safer
 # cask "cloudflare-warp"
+# Find files, folders, or contents in any file
+cask "easyfind"
 # Font family designed for developers, with a high number of glyphs (e.g. icons from popular 'Nerd Fonts' and 'Font Awesome' sets)
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
@@ -126,12 +42,13 @@ cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Replacement for Docker Desktop
-# Must live in /Applications (not ~/Applications) to function correctly
-cask "orbstack", args: { appdir: "/Applications" }
+cask "orbstack"
 # IDE for orchestrating AI coding agents across terminals and worktrees
 cask "stablyai/orca/orca"
-# Move and resize windows using keyboard shortcuts or snap areas
-cask "rectangle"
+# Collection of apps available by subscription
+cask "setapp"
+# Team communication and collaboration software
+cask "slack"
 # Mux and tag mp4 files
 # cask "subler"
 # Text editor for code, markup and prose

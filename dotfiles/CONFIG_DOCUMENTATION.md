@@ -2,36 +2,37 @@
 
 This document explains the less-obvious settings and customizations in the
 dotfiles configuration. Each top-level directory under `dotfiles/` groups one
-app's config; `mise.toml`'s `[dotfiles]` map symlinks them into `$HOME` (see
-[`readme.md`](./readme.md)).
+app's config; the `[dotfiles]` map in `mise.toml` symlinks them into `$HOME`
+(see [`readme.md`](./readme.md)).
 
 ## Directory Structure
 
-| Package       | What it configures                                                 |
-| ------------- | ------------------------------------------------------------------ |
-| `fish/`       | Fish shell — the default interactive shell (`conf.d/*.fish`)       |
-| `zsh/`        | Zsh configuration (legacy / fallback shell)                        |
-| `starship/`   | Starship prompt (the active prompt, initialised from fish)         |
-| `oh-my-posh/` | Oh My Posh prompt themes (`shell.yaml`, `claude.yaml`) — alternate |
-| `ghostty/`    | Ghostty terminal configuration                                     |
-| `git/`        | Git config, ignores, and conditional includes for GitHub/GitLab    |
-| `github/`     | GitHub CLI (`gh`) configuration and hosts                          |
-| `ssh/`        | SSH client config and commit-signing public keys                   |
-| `fnox/`       | Secret management via the macOS Keychain (see below)               |
-| `mise/`       | Global `mise` tool versions, env, and task runner shortcuts        |
-| `pnpm/`       | Global pnpm settings (`config.yaml`); auth stays in `~/.npmrc`     |
-| `homebrew/`   | The `brewfile` (source of truth for installed packages)            |
-| `dprint/`     | `dprint` / `taplo` formatter configuration                         |
-| `gem/`        | RubyGems configuration                                             |
-| `ai-tools/`   | Claude Code (`claude/`) and GitHub Copilot (`copilot/`) config     |
-| `mempalace/`  | mempalace/qdrant docker compose stack (see below)                  |
-| `pitchfork/`  | Pitchfork daemon config — supervises the mempalace stack           |
+| Package       | What it configures                                                  |
+| ------------- | ------------------------------------------------------------------- |
+| `fish/`       | Fish shell — the default interactive shell (`conf.d/*.fish`)        |
+| `zsh/`        | Zsh configuration (legacy / fallback shell)                         |
+| `starship/`   | Starship prompt (the active prompt, initialised from fish)          |
+| `oh-my-posh/` | Oh My Posh prompt themes (`shell.yaml`, `claude.yaml`) — alternate  |
+| `ghostty/`    | Ghostty terminal configuration                                      |
+| `homebrew/`   | The `brewfile` — casks and VS Code extensions (formulae are mise's) |
+| `git/`        | Git config, ignores, and conditional includes for GitHub/GitLab     |
+| `github/`     | GitHub CLI (`gh`) configuration (`hosts.yml` stays untracked)       |
+| `ssh/`        | SSH client config and commit-signing public keys (see below)        |
+| `fnox/`       | Secret management via the macOS Keychain (see below)                |
+| `mise/`       | Global `mise` tool versions, env, and task runner shortcuts         |
+| `pnpm/`       | Global pnpm settings (`config.yaml`); auth stays in `~/.npmrc`      |
+| `dprint/`     | `dprint` / `taplo` formatter configuration                          |
+| `gem/`        | RubyGems configuration                                              |
+| `1Password/`  | 1Password SSH agent configuration                                   |
+| `ai-tools/`   | Claude Code (`claude/`) and GitHub Copilot (`copilot/`) config      |
+| `mempalace/`  | mempalace/qdrant docker compose stack (see below)                   |
+| `pitchfork/`  | Pitchfork daemon config — supervises the mempalace stack            |
 
 ## Shells & Prompt
 
 The default interactive shell is **fish**; `zsh` is kept in sync as a fallback.
-Set fish as the login shell via the steps in
-[`docs/shell.md`](../docs/shell.md).
+`mise bootstrap` makes fish the login shell (`[bootstrap.user]`) and adds the
+Homebrew shells to `/etc/shells` (see [`docs/shell.md`](../docs/shell.md)).
 
 Interactive shells get a full `mise activate`; non-interactive shells get
 `--shims`. In fish that is the if/else in `conf.d/51-mise.fish`, and it
@@ -95,10 +96,11 @@ mise shims unconditionally — see **Shells & Prompt** above.
 ## Tooling via mise
 
 `dotfiles/mise/config.toml` is the global `mise` config. It pins language/CLI
-tool versions, sets `pnpm` as the npm package manager, enables `uvx` for pipx,
-and defines a large set of `[shell_alias]` shortcuts — including `updateall`,
-`osx-upgrade`, IP helpers (`ipv4`, `gateway`, …), and cleanup tasks. The task
-scripts themselves live under `mise/tasks/`.
+tool versions, sets `pnpm` as the npm package manager, installs `pipx:*` tools
+with pipx rather than uv (`brew:pipx`; uv graph installs churned, see mise
+2026.9.7), and defines a large set of `[shell_alias]` shortcuts — including
+`updateall`, `osx-upgrade`, IP helpers (`ipv4`, `gateway`, …), and cleanup
+tasks. The task scripts themselves live under `mise/tasks/`.
 
 It is the single source of truth for **environment variables, aliases and shell
 functions**. Neither shell defines its own — there is no `aliases.sh` or
@@ -113,6 +115,25 @@ mise-managed tools with any copy living in it — `~/.local/bin` holds a
 standalone `uv` and `uvx`, and Homebrew's `bin` holds `jq` and `yq`. Keeping
 `PATH` in shell config, with `mise activate` running last, is what makes the
 mise-managed copies win.
+
+## AI tools
+
+Claude Code runs in the `auto` permission mode (`permissions.defaultMode` in
+`ai-tools/claude/settings.json`); the `cc*` aliases never pass
+`--dangerously-skip-permissions`, and `skipDangerousModePermissionPrompt` is not
+set. Secrets reach the shell through fnox, so a session that could run anything
+unprompted would have them too.
+
+The `cc*` aliases all run one global task, `func:claude`
+(`mise/tasks/func/claude`): `cc` with the default model, `ccf`/`cco`/`ccs`/`cch`
+pinned to Fable, Opus, Sonnet and Haiku. It starts
+`claude --remote-control
+--effort high` with the session named after the current
+folder, or `<folder>-<name>` when a bare first argument is given — `cc review`
+in `macos-setup/` is the session `macos-setup-review`. Only `--model` is parsed
+by the task (it is the flag the aliases put before the name); every other
+argument passes through to `claude`, so `cc review --continue` and
+`cc --continue` both work, and a later `--effort` overrides the default.
 
 ## mempalace (MCP memory server)
 
@@ -138,10 +159,86 @@ one-time setup.
 (`git/root/gitignore_global`). Commit signing keys live in `ssh/` and are
 referenced via `ssh/allowed_signers`.
 
-## Link map
+`push.default` is `current`, and the push aliases (`p` in gitconfig, `gp` in
+mise) push only the current branch — never `--all`. With public repos, a `--all`
+push would publish every local scratch branch, whatever it carries.
 
-`dotfiles/mise.toml` is the single source of truth for what gets linked where.
-Only paths listed there are symlinked, so repo metadata is never linked by
-accident. `mode = "symlink"` links the source itself; `mode = "symlink-each"`
-links each entry inside the source directory individually (used for `~/.ssh` and
-`~/.config/gh`, where other tools write sibling files).
+## SSH & GitHub CLI
+
+`ssh/config` verifies host keys (`StrictHostKeyChecking accept-new`: first
+contact is recorded in `~/.ssh/known_hosts`, a changed key is refused). It
+includes `~/.ssh/config.local` for machine-local hosts — LAN boxes, per-host
+auth overrides — which is untracked on purpose, since this repo is public. A
+missing include is ignored by ssh.
+
+Only `github/config.yml` is linked into `~/.config/gh`. `hosts.yml` is machine
+state `gh auth login` writes, and while macOS `gh` keeps the token in the
+Keychain by default, `--insecure-storage` or a Keychain failure writes it into
+the file — so it is never tracked here.
+
+## Machine declaration (`mise/conf.d/`)
+
+`dotfiles/mise/` is the global mise config (linked to `~/.config/mise`).
+`config.toml` holds settings, tools, env and aliases; `conf.d/*.toml` holds what
+`mise bootstrap` applies — from any directory, since it is global — in
+[mise's phase order](https://mise.jdx.dev/bootstrap.html). The `[dotfiles]` link
+map is the deliberate exception: it lives in `dotfiles/mise.toml`, a project
+config, because it changes with the repo rather than the machine — and because a
+source path relative to a file read through the `~/.config/mise` symlink is
+normalised lexically by mise for `symlink-each` entries (`../../ssh` →
+`~/.config/ssh`), which once removed the `~/.ssh` and `~/.config/gh` links.
+Apply it with `mise run dotfiles:install`.
+
+- `[bootstrap.packages]` (`packages.toml`) — Homebrew formulae (`brew:`) and Mac
+  App Store apps (`mas:<adam id>`). mise pours the same bottles brew would into
+  the shared `/opt/homebrew` Cellar without calling `brew`;
+  `brew list`/`upgrade` still see them. The `pre-packages` hook
+  (`macos:appstore`) checks that an Apple Account is signed in, since
+  `mas install` fails otherwise and would abort the run (mas 7 has no sign-in
+  query, so this is a heuristic). Third-party tap formulae work only when the
+  tap publishes `api/formula/<name>.json` (`virajp/tap` does). The
+  `post-packages` hook then runs `brew:casks`, which applies `homebrew/brewfile`
+  — casks and VS Code extensions, which stay on Homebrew because mise's cask
+  support is intentionally narrow (no `postflight`, no per-cask `appdir`).
+  Ownership rule: casks → Homebrew, formulae/mas → mise, versioned dev tools →
+  `[tools]`. One formula needs more: `tailscaled` must run as root (utun) and
+  mise has no privileged services on macOS, so the `tailscale:daemon` hook task
+  starts it with `sudo brew services`, and `upgrade:tailscale` hands the
+  root-owned keg back before `packages upgrade` can replace it. (The App Store
+  build is sandboxed and cannot run the Tailscale SSH server.)
+- `[bootstrap.files]` (`system.toml`) — `/etc/pam.d/sudo_local` (Touch ID for
+  sudo).
+- `[bootstrap.compose]` (`system.toml`) — the qdrant container from `mempalace/`
+  (project `mempalace`), after OrbStack. `project_dir` has to be a literal
+  absolute path, so this is the one place the username appears in the repo.
+- `[dotfiles]` `line` entries (`system.toml`) — Homebrew's bash and zsh in
+  `/etc/shells`.
+- `[bootstrap.macos.defaults]` (`macos.toml`) — every `defaults write` the old
+  `utils/macos-setup` script ran, one table per domain. mise never restarts
+  apps, so the `post-defaults` hook does the `killall`s (and
+  `chflags nohidden ~/Library`, and the one `$HOME`-dependent Finder key, since
+  defaults values are not templated).
+- `[bootstrap.user]` (`system.toml`) — fish as login shell.
+- `[tasks.bootstrap]` (`macos.toml`) — runs `macos:power`
+  (`mise/tasks/macos/power`): `pmset`/`nvram`, which mise has no declaration
+  for; prompts for `sudo`.
+
+`updateall` re-runs the Touch ID file, defaults and power parts
+(`bootstrap --only files,defaults,task`) once a week — a stamp in `/tmp`, so a
+reboot (every macOS update has one) resets the week; `updateall --force` runs it
+now — and `upgrade:brew` runs `packages prune` + `apply` + `upgrade` and
+`brew:casks`.
+
+Not migrated on purpose: `mise activate` stays in `51-mise.fish`/`.zshrc`
+(`[bootstrap.mise_shell_activate]` would lose the interactive/`--shims` split),
+and pitchfork keeps its own LaunchAgent.
+
+### Link map
+
+Only paths listed in `[dotfiles]` (`dotfiles/mise.toml`) are symlinked, so repo
+metadata is never linked by accident. Sources are relative to `dotfiles/`.
+`mode = "symlink"` links the source itself; `mode = "symlink-each"` links each
+entry inside the source directory individually (used for `~/.ssh`, where ssh and
+the 1Password agent write sibling files). `~/.config/gh` is deliberately not
+`symlink-each`: only `config.yml` is linked, so `gh`-written `hosts.yml` cannot
+land in the repo (see **SSH & GitHub CLI**).

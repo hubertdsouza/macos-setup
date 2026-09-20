@@ -1,3 +1,10 @@
+# Link map for this directory: which file lands at which $HOME path, and how.
+# A project config on purpose, not part of the global one in mise/conf.d/: the
+# links change only when this repo changes, so they are applied with
+# `mise run dotfiles:install` (or `mise bootstrap dotfiles apply` from here),
+# not by the machine-wide `mise bootstrap`. Sources are relative to this file,
+# which is why it must live here: read through the ~/.config/mise symlink, a
+# `../..` source is normalised lexically by mise and ends up in ~/.config/.
 [dotfiles]
 # ZSH
 "~/.config/zsh" = { mode = "symlink", source = "zsh/scripts" }
@@ -16,6 +23,9 @@
 
 # GitHub Copilot
 "~/.github/git-commit-guidelines.md" = { mode = "symlink", source = "ai-tools/copilot/git-commit-guidelines.md" }
+
+# 1Password
+"~/.config/1Password/ssh/agent.toml" = { mode = "symlink", source = "1Password/agent.toml" }
 
 # dprint & Taplo
 "~/.config/dprint.json" = { mode = "symlink", source = "dprint/dprint.json" }
@@ -36,9 +46,9 @@
 "~/.ssh"              = { mode = "symlink-each", source = "ssh" }
 
 # GitHub CLI
-"~/.config/gh" = { mode = "symlink-each", source = "github" }
+"~/.config/gh/config.yml" = { mode = "symlink", source = "github/config.yml" }
 
-# Brewfil (homebrew)
+# Brewfile (casks + VS Code extensions, applied by brew:casks)
 "~/.config/brewfile" = { mode = "symlink", source = "homebrew/brewfile" }
 
 # Mempalace (dockerfile & compose)
