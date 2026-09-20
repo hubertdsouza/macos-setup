@@ -202,7 +202,8 @@
   "enabledPlugins": {
     "warp@claude-code-warp": true,
     "stackgen@virajp-plugins": true,
-    "vwf@virajp-plugins": true
+    "vwf@virajp-plugins": true,
+    "notion@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code-warp": {
