@@ -57,9 +57,6 @@
 # oh-my-posh
 "~/.config/oh-my-posh" = { mode = "symlink", source = "oh-my-posh" }
 
-# Pitchfork
-"~/.config/pitchfork" = { mode = "symlink", source = "pitchfork" }
-
 # PNPM
 "~/Library/Preferences/pnpm/config.yaml" = { mode = "symlink", source = "pnpm/config.yaml" }
 

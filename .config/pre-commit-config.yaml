@@ -59,7 +59,7 @@ repos:
     hooks:
       - id: linter
         name: Linter
-        entry: mise x -- pnpm dlx @askviraj/linter --fix
+        entry: mise x -- pnpm dlx @virajp.dev/linter --fix
         language: system
         stages: [ pre-commit ]
 

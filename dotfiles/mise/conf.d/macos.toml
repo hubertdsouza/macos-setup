@@ -117,7 +117,7 @@ post-defaults = [
 "killall SystemUIServer || true",
 "killall ControlCenter || true",
 ]
-post-packages = [ "mise run brew:casks", "mise run tailscale:daemon" ]
+post-packages = [ "mise run brew:casks" ]
 pre-packages = "mise run macos:appstore"
 
 # Runs last in `mise bootstrap`: prompts for sudo (pmset/nvram)

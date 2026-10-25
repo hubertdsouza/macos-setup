@@ -20,10 +20,6 @@ brew update --force # --verbose
 # Formulae and mas apps are mise's ([bootstrap.packages], conf.d/packages.toml);
 # casks and VS Code extensions are brew's (Brewfile, via brew:casks)
 
-# Tailscale runs as a root service and needs special handling before the
-# generic upgrade below would otherwise fail on its root-owned keg.
-mise run upgrade:tailscale
-
 print_subheader "Deleting formulae NOT in [bootstrap.packages] ..."
 mise bootstrap packages prune --manager brew --yes
 

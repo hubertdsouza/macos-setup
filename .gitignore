@@ -24,6 +24,9 @@
 # ============================================================
 .claude/settings.local.json
 
+# mempalace
+wal/
+
 # oh-my-claudecode (OMC)
 # Root .omc — track project-memory.json only; ignore transient subdirs
 .omc/state/

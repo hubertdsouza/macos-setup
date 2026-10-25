@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Start the mempalace stack via pitchfork"
+#MISE description="Start the mempalace stack"
 #MISE depends=["mempalace:check"]
 
 set -e
@@ -9,6 +9,3 @@ print_header "Starting qdrant backend ..."
 docker compose --file "${HOME}/.config/mempalace/docker-compose.yaml" up --detach
 
 print_subheader "Starting mempalace ..."
-# Clear any disable left by mempalace:stop, which guards the on_exit hook.
-pitchfork enable mempalace-mcp
-pitchfork start mempalace-mcp
