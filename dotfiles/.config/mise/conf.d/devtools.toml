@@ -1,0 +1,26 @@
+# Packages to be installed via Homebrew
+[bootstrap.packages]
+# Formulaes
+"brew:lcov" = "latest" # Code coverage tool for C/C++
+
+# Casks
+"brew-cask:sublime-text" = "latest" # Text editor for code, markup and prose
+"brew-cask:visual-studio-code" = "latest" # Open-source code editor
+# "brew-cask:lm-studio"          = "latest" # Discover, download, and run local LLMs
+
+# Developer Tools
+
+[dotfiles]
+# Gem
+"~/.gemrc" = {}
+
+[env]
+# Development tools
+CHROME_EXECUTABLE = "${HOME}/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+DOTNET_CLI_TELEMETRY_OPTOUT = "true"
+PRE_COMMIT_HOME = "${HOME}/.cache/pre-commit"
+RUNTIME_ENV = "development"
+
+[shell_alias]
+code = "mise run --silent func:code"
+edit = "subl"

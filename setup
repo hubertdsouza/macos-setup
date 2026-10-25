@@ -8,25 +8,27 @@
 #   Provisions a fresh laptop (or re-converges an existing one). Homebrew and
 #   mise are the only things installed by hand here; everything else -
 #   packages, dotfiles, macOS defaults, login shell, Touch ID - is declared in
-#   the global mise config (dotfiles/mise/, linked to ~/.config/mise) and
-#   applied by `mise bootstrap`.
+#   the global mise config (dotfiles/.config/mise/, linked to ~/.config/mise)
+#   and applied by `mise bootstrap`.
 #
 # Usage:
 #   ./setup
 #   # or bootstrap a fresh machine directly from the public repo:
 #   curl -fsSL https://raw.githubusercontent.com/hubertdsouza/macos-setup/main/setup | sh
 #   # a fork: GITHUB_USER=<you> curl ... | sh
+#   # also REPO_NAME=<repo> (default macos-setup) and PROJECTS_DIR=<dir>
+#   # (default ~/Projects)
 #
 # Steps:
 # - Install Homebrew if it is missing (this also installs the Xcode Command
 #   Line Tools, which bring `git`)
-# - Clone the repo to ~/Projects/github.com/${GITHUB_USER}/macos-setup if it
-#   is not there yet
+# - Clone the repo to ${PROJECTS_DIR}/github.com/${GITHUB_USER}/${REPO_NAME} if
+#   it is not there yet
 # - `brew analytics off`, `brew doctor`
 # - Install `mise`
-# - Link ~/.config/mise to dotfiles/mise so the global config exists
-# - Run `mise bootstrap` (skipping the compose phase until Docker is up)
-# - Link the dotfiles (`mise run dotfiles:install`)
+# - Link ~/.config/mise to dotfiles/.config/mise so the global config exists
+# - Run `mise bootstrap` (skipping the compose phase until Docker is up); its
+#   dotfiles phase links the rest of the dotfiles
 #
 # Notes:
 #   Written as a function that is called (and exited) on the last line, so the
@@ -38,7 +40,7 @@
 #   /bin/bash is used, not zsh: it is what macOS runs `sh` as, and it is
 #   always present on a fresh machine.
 #
-# Author: Viraj Patel
+# Author: hubertdsouza
 ##############################################################################
 
 set -euo pipefail
@@ -53,8 +55,10 @@ main() {
   local WARNING_EMOJI="⚠️"
 
   local GITHUB_USER="${GITHUB_USER:-hubertdsouza}"
-  local REPO_URL="https://github.com/${GITHUB_USER}/macos-setup.git"
-  local REPO_DIR="${HOME}/Projects/github.com/${GITHUB_USER}/macos-setup"
+  local REPO_NAME="${REPO_NAME:-macos-setup}"
+  local PROJECTS_DIR="${PROJECTS_DIR:-${HOME}/Projects}"
+  local REPO_URL="https://github.com/${GITHUB_USER}/${REPO_NAME}.git"
+  local REPO_DIR="${PROJECTS_DIR}/github.com/${GITHUB_USER}/${REPO_NAME}"
   local MISE_CONFIG_DIR="${HOME}/.config/mise"
 
   # When piped (`curl ... | sh`) stdin is the script itself. Everything below is
@@ -77,11 +81,11 @@ main() {
   # Clone the repo if it isn't present yet. Git ships with the Xcode Command
   # Line Tools that the Homebrew installer above pulls in.
   if [[ ! -d "${REPO_DIR}" ]]; then
-    echo "${INSTALL_EMOJI} Cloning macos-setup into ${REPO_DIR}..."
+    echo "${INSTALL_EMOJI} Cloning ${REPO_NAME} into ${REPO_DIR}..."
     mkdir -p "$(dirname "${REPO_DIR}")"
     git clone "${REPO_URL}" "${REPO_DIR}"
   else
-    echo "${SUCCESS_EMOJI} macos-setup repo already present at ${REPO_DIR}."
+    echo "${SUCCESS_EMOJI} ${REPO_NAME} repo already present at ${REPO_DIR}."
   fi
 
   # Turn off homebrew analytics
@@ -90,15 +94,17 @@ main() {
 
   # Check Homebrew health
   echo "${CHECK_EMOJI} Checking Homebrew health..."
-  brew doctor || true
+  brew doctor
 
-  # mise drives the rest of the setup.
-  if ! command -v mise &> /dev/null; then
-    echo "${INSTALL_EMOJI} mise not found. Installing..."
-    brew install mise
+  # mise drives the rest of the setup. It is installed with its own installer
+  # (to ~/.local/bin), never Homebrew, so `mise self-update` can manage it.
+  if [[ ! -x "${HOME}/.local/bin/mise" ]]; then
+    echo "${INSTALL_EMOJI} mise not found in ~/.local/bin. Installing..."
+    curl https://mise.run | sh
   fi
+  export PATH="${HOME}/.local/bin:${PATH}"
 
-  # Casks land in ~/Applications (1password is the exception, see the Brewfile).
+  # Casks land in ~/Applications (orbstack is the exception, see containers.toml).
   # Only needed on a fresh machine: once the dotfiles are linked, the global mise
   # [env] block sets it.
   export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications --fontdir=${HOME}/Library/Fonts"
@@ -108,12 +114,12 @@ main() {
   # `mise bootstrap` already reads it (the [dotfiles] entry for ~/.config/mise
   # then finds it applied).
   if [[ ! -L "${MISE_CONFIG_DIR}" ]]; then
-    echo "${SETTING_EMOJI} Linking ${MISE_CONFIG_DIR} -> ${REPO_DIR}/dotfiles/mise..."
+    echo "${SETTING_EMOJI} Linking ${MISE_CONFIG_DIR} -> ${REPO_DIR}/dotfiles/.config/mise..."
     mkdir -p "${HOME}/.config"
     if [[ -e "${MISE_CONFIG_DIR}" ]]; then
       mv "${MISE_CONFIG_DIR}" "${MISE_CONFIG_DIR}.bak-$(date +%s)"
     fi
-    ln -s "${REPO_DIR}/dotfiles/mise" "${MISE_CONFIG_DIR}"
+    ln -s "${REPO_DIR}/dotfiles/.config/mise" "${MISE_CONFIG_DIR}"
   fi
 
   # The qdrant compose project needs a running Docker engine. On a fresh machine
@@ -136,18 +142,9 @@ main() {
   cd "${HOME}"
   mise bootstrap "${bootstrap_flags[@]}"
 
-  # The dotfiles link map is a project config in dotfiles/ (it changes with the
-  # repo, not with the machine), so it is applied from there, not by the global
-  # bootstrap above.
-  echo ""
-  echo "${SETTING_EMOJI} Linking dotfiles..."
-  mise --cd "${REPO_DIR}" run dotfiles:install
-
   echo ""
   echo "${SUCCESS_EMOJI} Setup complete!"
   echo "   Next: open a new terminal (fish is the login shell now), then:"
-  echo "   - tailscale up            # this node is new to the tailnet"
-  echo "   - pitchfork boot enable   # start mempalace at login (docs/mempalace.md)"
   echo "   - launch OrbStack once, then: mise bootstrap --only compose"
   echo ""
   printf '%*s\n' "${COLUMNS:-80}" '' | tr ' ' '='
