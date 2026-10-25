@@ -1,0 +1,27 @@
+[bootstrap.packages]
+# Casks
+"brew-cask:alfred" = "latest" # Application launcher and productivity software
+"brew-cask:arc" = "latest" # Arc browser
+"brew-cask:brave-browser" = "latest" # Brave Browser
+"brew-cask:notion" = "latest" # App to write, plan, collaborate, and get organised
+"brew-cask:obsidian" = "latest" # Knowledge base that works on top Markdown files
+"brew-cask:rectangle" = "latest" # Move and resize windows using keyboard shortcuts or snap areas
+"brew-cask:vorssaint" = "latest" # Menu bar toolkit with keep-awake, system monitor and volume mixer
+"brew-cask:whatsapp" = "latest" # Native desktop client for WhatsApp
+# "brew-cask:cloudflare-warp" = "latest" # Free app that makes your Internet safer
+
+# Video Casks
+"brew-cask:handbrake-app" = "latest" # Open-source video transcoder
+"brew-cask:vlc" = "latest" # Multimedia player
+# "brew-cask:subler"        = "latest" # Mux and tag mp4 files
+
+# Mac App Store (keyed by ADAM id)
+"mas:361285480" = "latest" # Keynote
+"mas:361304891" = "latest" # Numbers
+"mas:361309726" = "latest" # Pages
+"mas:408981434" = "latest" # iMovie
+"mas:682658836" = "latest" # GarageBand
+"mas:937984704" = "latest" # Amphetamine
+
+[shell_alias]
+cleanupTelegram = "mise run cleanupTelegram"

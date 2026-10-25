@@ -1,0 +1,34 @@
+#!/usr/bin/env fish
+# =============================================================================
+# Fish Configuration: Environment Variables
+# =============================================================================
+# This file is auto-sourced by Fish shell during startup.
+# Files in conf.d/ are automatically loaded in alphabetical order.
+#
+# Only bootstrap variables belong here. Everything else lives in mise's [env]
+# block (dotfiles/.config/mise/conf.d/), which both fish and zsh pick up on
+# activation.
+#
+# - GPG_TTY: must be evaluated per-session against the live terminal, so mise
+#   cannot provide it (its [env] is evaluated in a subprocess).
+# - HOMEBREW_PREFIX: consumed by 02-path.fish and 05-homebrew.fish, both of
+#   which run before mise activates at 51-.
+# =============================================================================
+
+# XDG Base Directory setup
+set --global --export XDG_CONFIG_HOME $HOME/.config
+set --global --export XDG_DATA_HOME   $HOME/.local/share
+set --global --export XDG_STATE_HOME  $HOME/.local/state
+set --global --export XDG_CACHE_HOME  $HOME/.cache
+
+# Create XDG Base Directory structure if it doesn't exist
+mkdir -p $XDG_CONFIG_HOME $XDG_DATA_HOME $XDG_STATE_HOME $XDG_CACHE_HOME
+
+# GPG
+set --global --export GPG_TTY (tty)
+
+# Set HOMEBREW_PREFIX environment variable
+set --global --export HOMEBREW_PREFIX /opt/homebrew
+
+# fnox config dir
+set --global --export FNOX_CONFIG_DIR $HOME/.config/fnox

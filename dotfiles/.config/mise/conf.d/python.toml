@@ -1,0 +1,21 @@
+[settings]
+# Python, pipx, uv settings
+# every pipx: tool installs through uv
+pipx.uvx = true
+python.compile = false
+python.uv_venv_auto = "create|source"
+
+[tools.python]
+minimum_release_age = "0h"
+version = "3.14"
+
+[tools.uv]
+depends = [ "python" ]
+minimum_release_age = "0h"
+version = "latest"
+
+[env]
+# Python (uv)
+UV_NO_CACHE = true
+UV_NO_MANAGED_PYTHON = true
+UV_PYTHON_DOWNLOADS = "never"

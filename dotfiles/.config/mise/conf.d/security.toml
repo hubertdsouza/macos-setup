@@ -1,0 +1,23 @@
+[tools.fnox]
+minimum_release_age = "0h"
+version = "latest"
+
+[bootstrap.packages]
+# Formulas
+"brew:fnox" = "latest" # Secret management tool
+"brew:gnupg" = "latest" # GNU Privacy Guard for encryption and signing
+
+# Mac App Store (also ships the Safari extension)
+"mas:1352778147" = "latest" # Bitwarden
+
+[dotfiles]
+# fnox
+"~/.config/fnox/config.toml" = {}
+
+# SSH configuration; identity files are templates rendered from the [vars] in identity.toml
+"~/.ssh/config" = {}
+"~/.ssh/config.identity" = { mode = "template" }
+
+[env]
+# Bitwarden SSH agent (also signs git commits — see .config/git/config)
+SSH_AUTH_SOCK = "${HOME}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"

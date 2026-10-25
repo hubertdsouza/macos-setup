@@ -3,29 +3,41 @@
 My personal macOS provisioning repo, driven by
 [`mise bootstrap`](https://mise.jdx.dev/bootstrap.html): packages, dotfiles,
 macOS defaults, login shell and Touch ID are all declared in the global mise
-config ([`dotfiles/mise/conf.d/`](./dotfiles/mise/conf.d/)), plus a `mise` task
-runner for the rest.
+config ([`dotfiles/.config/mise/conf.d/`](./dotfiles/.config/mise/conf.d/)),
+plus a `mise` task runner for the rest.
 
 ## Automated setup
 
 The [`./setup`](./setup) script is the main entrypoint. It installs Homebrew and
 `mise` if missing, links `~/.config/mise`, then runs `mise bootstrap` — Homebrew
-formulae and App Store apps (`[bootstrap.packages]`), casks and VS Code
-extensions via the Brewfile (`brew:casks`), macOS `defaults`
-(`[bootstrap.macos.defaults]`), the fish login shell, Touch ID for sudo, and the
-pmset/nvram power profile (`macos:power` task):
+formulae, casks and App Store apps (`[bootstrap.packages]`), macOS `defaults`
+(`[bootstrap.macos.defaults]`), the dotfile links (`[dotfiles]`), the fish login
+shell and Touch ID for sudo:
 
 ```shell
 ./setup
 # or, once set up, converge directly:
 mise bootstrap            # from any directory; --dry-run to preview
 mise bootstrap status     # what differs
-mise run dotfiles:install # (re)link the dotfiles — a repo task, not part of bootstrap
+mise run dotfiles:install # (re)link only the dotfiles
 ```
 
 > On a truly fresh machine, run the one-liner in
 > [docs/setup.md](./docs/setup.md) (`curl … | sh`) — it installs Homebrew and
 > clones this repo before doing the same.
+
+## Syncing from upstream
+
+The shape of this repo follows
+[`virajp/macos-setup`](https://github.com/virajp/macos-setup). To pull its later
+changes in, run this in Claude Code:
+
+```text
+Follow https://raw.githubusercontent.com/virajp/macos-setup/main/sync.md
+```
+
+It keeps this repo's software and identity and only brings over the structure.
+Add `for <app>` to limit it to one piece of software.
 
 ## Manual steps
 
@@ -41,13 +53,13 @@ mise run dotfiles:install # (re)link the dotfiles — a repo task, not part of b
 Tasks are run with `mise` (list them with `mise tasks`):
 
 ```shell
-mise bootstrap packages status  # system vs [bootstrap.packages]
-mise bootstrap packages apply   # install what is missing
-mise run dotfiles:install       # (re)symlink dotfiles
-mise run dotfiles:status        # show which dotfile symlinks are missing
-mise run code:format     # format files (dprint/taplo)
-mise run code:lint       # lint files
-mise run system:symlinks # find broken symlinks in $HOME (--deep, --delete)
+mise bootstrap packages status # system vs [bootstrap.packages]
+mise bootstrap packages apply  # install what is missing
+mise run dotfiles:install      # (re)symlink dotfiles
+mise run dotfiles:status       # show which dotfile symlinks are missing
+mise run code:format           # format files (dprint)
+mise run code:lint             # lint files
+mise run system:symlinks       # find broken symlinks in $HOME (--deep, --delete)
 ```
 
 See [dotfiles/CONFIG_DOCUMENTATION.md](./dotfiles/CONFIG_DOCUMENTATION.md) for
@@ -58,16 +70,8 @@ how the dotfiles are organized.
 ```shell
 # Update everything (the macOS settings / power profile part runs weekly)
 updateall
-updateall --force   # run the weekly part now
+updateall --force # run the weekly part now
 
 # Update macOS (works on zsh & fish only)
 osx-upgrade
 ```
-
-## Install these tools manually
-
-- [Brave Browser](https://brave.com/)
-- [Cloudflare Wrap](https://1.1.1.1/)
-- [SnapDownloader](https://snapdownloader.com/downloads)
-- [Spatial Media Metadata Injector](https://github.com/google/spatial-media/releases)
-- [Insta360 Studio 2023](https://www.insta360.com/download/insta360-oners)
