@@ -63,7 +63,8 @@ largesize = 71 # size of the large Dock items
 magnification = true # enable Dock magnification
 minimize-to-application = true # minimize windows into their application's Dock icon
 mru-spaces = false # don't rearrange Spaces by recent use
-orientation = "right" # position of the Dock on the screen
+# Keep orientation as "left" as it works in my setup. Never change this while adopting `virajp/macos-setup`
+orientation = "left" # position of the Dock on the screen
 show-process-indicators = true # show indicators for running applications in the Dock
 show-recents = false # don't show recent applications in the Dock
 tilesize = 38 # size of the Dock tiles

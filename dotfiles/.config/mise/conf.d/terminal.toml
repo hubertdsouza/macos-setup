@@ -17,8 +17,5 @@
 # Ghostty
 "~/.config/ghostty/config" = {}
 
-# oh-my-posh (unused: the prompt is starship)
-"~/.config/oh-my-posh" = {}
-
 # Starship
 "~/.config/starship.toml" = {}

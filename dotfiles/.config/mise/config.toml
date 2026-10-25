@@ -5,7 +5,11 @@ min_version = { soft = "2026.10.8" }
 activate_aggressive = true
 all_compile = false
 env_shell_expand = true
+# Fail fast on unreachable hosts: one retry, half the default timeouts
+fetch_remote_versions_timeout = "10s"
 gpg_verify = true
+http_retries = 1
+http_timeout = "15s"
 lockfile = false
 minimum_release_age = "10h"
 minimum_release_age_excludes = [ "fnox", "age" ]
@@ -21,7 +25,7 @@ status.show_env = true
 status.show_tools = true
 task.disable_spec_from_run_scripts = true
 task.output = "interleave"
-trusted_config_paths = [ "~/.config/mise" ]
+trusted_config_paths = [ "~/.config/mise", "~/Projects" ]
 
 # Setup the dotfiles
 dotfiles.default_mode = "symlink"
@@ -43,3 +47,5 @@ run = "find $HOME/.config/mise/tasks/ -name '*' -type f -exec chmod 755 {} \\;"
 [env]
 # Mise
 MISE_BREW_CASK_OPT_APPDIR = "$HOME/Applications"
+# The plugin HTTP client reads only the env var, not http_retries
+MISE_HTTP_RETRIES = "1"
